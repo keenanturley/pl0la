@@ -1,3 +1,6 @@
+#ifndef TOKEN_H
+#define TOKEN_H
+
 /* Token Types */
 typedef enum token_type { nulsym = 1, identsym, numbersym, plussym, minussym, 
     multsym, slashsym, oddsym, eqsym, neqsym, lessym, leqsym, 
@@ -12,3 +15,7 @@ typedef struct token {
     char *name;
     token_type type;
 } token;
+
+token_type evaluate_token_type(char *str);
+
+#endif /* TOKEN_H */
