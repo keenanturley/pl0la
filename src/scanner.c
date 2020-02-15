@@ -1,7 +1,10 @@
 #include <stdio.h>
 #include <stdbool.h>
+#include <string.h>
+#include <ctype.h>
 #include "token.h"
 #include "scanner.h"
+
 
 list * tokenize(char * file_path){
     FILE * fp = fopen(file_path, "r");
@@ -13,7 +16,7 @@ list * tokenize(char * file_path){
     while (fpeek(fp) != EOF){
         newToken = nextToken(fp);
         
-        add(tokenList, newToken); // Note: does not yet verify that token was read without error
+        add(tokenList, newToken); // Note: does not verify that token was read without error
         
         while (fpeek(fp) != EOF && (skipWhiteSpace(fp) || skipComments(fp))); // Skips white space and comments
     }
@@ -23,31 +26,30 @@ list * tokenize(char * file_path){
 }
 
 /* TODO: figure out what to do with rest of token name
-   (for identifiers and numbers) after current token name has become too long */
-token nextToken(FILE * fp)
-{
-    char tokenName[12];
+ * (for identifiers and numbers) after current token name has become too long
+ */
+token nextToken(FILE * fp){
+    char tokenName[(MAX_IDENT_LENGTH + 1)];
     token nextToken;
     int i;
 
     char next = fpeek(fp);
-    if (isalpha(next)) {//read an identifier or reserved word
+    if (isalpha(next)) { // Read an identifier or reserved word
         i = 0;
         do{
-            if (i == 12) { //identifier too long
-                // TODO: throw error
-                tokenName[12] = '\0';
+            if (i == MAX_IDENT_LENGTH + 1) { // Identifier too long
+                tokenName[i] = '\0';
+                fprintf(stderr, "Error: Identifier starting with \"%s\" too long. Max length 11 characters", tokenName);
                 nextToken.type = nulsym;
-                nextToken.name = (char*)malloc(12 * sizeof(char));
+                nextToken.name = (char*)malloc(i * sizeof(char));
                 strcpy(nextToken.name, tokenName);
-
+                endToken(fp);
                 return nextToken;
             }
             tokenName[i++] = fgetc(fp);
 
             next = fpeek(fp);
         } while (isalpha(next) || isdigit(next));
-        // TODO: check if reserved word
         
         tokenName[i] = '\0';
         nextToken.type = evaluate_token_type(tokenName);
@@ -55,23 +57,76 @@ token nextToken(FILE * fp)
         strcpy(nextToken.name, tokenName);
         return nextToken;
     }
-    else if (isdigit(next)) {//read a number
+
+    else if (isdigit(next)) { // Read a number
         i = 0;
         do{
-            if (i == 6){ // number too long
+            if (i == MAX_NUMBER_LENGTH + 1){ // Number too long
                 // TODO: throw error
-                tokenName[i] = '\0';
-                nextToken.type = nulsym;
-                nextToken.name = (char*)malloc(i * sizeof(char));
-                strcpy(nextToken.name, tokenName);
-                return nextToken;
+                do{
+                    if (i == MAX_IDENT_LENGTH + 1){ // Number too long and Not an identifier
+                        tokenName[i] = '\0';
+                        fprintf(stderr, "Error: Number starting with \"%s\" too long. Max length 5 digits", tokenName);
+                        nextToken.type = nulsym;
+                        nextToken.name = (char*)malloc(i * sizeof(char));
+                        strcpy(nextToken.name, tokenName);
+                        endToken(fp);
+                        return nextToken;
+                    }
+                    tokenName[i++] = fgetc(fp);
+                    
+                    next = fpeek(fp);
+                } while(isdigit(next));
+                if (isalpha(next) && i < MAX_IDENT_LENGTH + 1){ // Variable does not start with letter
+                    do{
+                        if (i == MAX_IDENT_LENGTH + 1){ // Variable does not start with letter and is too long
+                            tokenName[i] = '\0';
+                            fprintf(stderr, "Error: Identifier \"%s\" does not begin with a letter", tokenName);
+                            fprintf(stderr, "Error: Identifier starting with \"%s\" too long. Max length 11 characters", tokenName);
+                            nextToken.type = nulsym;
+                            nextToken.name = (char*)malloc(i * sizeof(char));
+                            strcpy(nextToken.name, tokenName);
+                            endToken(fp);
+                            return nextToken;   
+                        }
+                        tokenName[i++] = fgetc(fp);
+                        next = fpeek(fp);
+                    } while (isalpha(next) || isdigit(next));
+                    tokenName[i] = '\0';
+                    fprintf(stderr, "Error: Identifier \"%s\" does not begin with a letter", tokenName);
+                    nextToken.type = nulsym;
+                    nextToken.name = (char*)malloc(i * sizeof(char));
+                    strcpy(nextToken.name, tokenName);
+                    return nextToken;
+                }
             }
             tokenName[i++] = fgetc(fp);
             
             next = fpeek(fp);
         } while (isdigit(next));
-        if (isalpha(next)){ // Variable does not start with letter. TODO: throw error
-            // Perhaps continue to read while the string is still only digits and letters?
+        if (isalpha(next)){ // Variable does not start with letter.
+            nextToken.type = nulsym;
+            do{
+                if (i == MAX_IDENT_LENGTH + 1){ // Variable does not start with letter AND identifier too long
+                    tokenName[i] = '\0';
+                    fprintf(stderr, "Error: Identifier \"%s\" does not begin with a letter", tokenName);
+                    fprintf(stderr, "Error: Identifier starting with \"%s\" too long. Max length 11 characters", tokenName);
+                    nextToken.type = nulsym;
+                    nextToken.name = (char*)malloc(i * sizeof(char));
+                    strcpy(nextToken.name, tokenName);
+                    endToken(fp);
+                    return nextToken;   
+                }
+                tokenName[i++] = fgetc(fp);
+
+                next = fpeek(fp);
+            } while (isalpha(next) || isdigit(next));
+            tokenName[i] = '\0';
+            fprintf(stderr, "Error: Identifier \"%s\" does not begin with a letter", tokenName);
+            nextToken.type = nulsym;
+            nextToken.name = (char*)malloc(i * sizeof(char));
+            strcpy(nextToken.name, tokenName);
+            return nextToken;
         }
 
         tokenName[i] = '\0';
@@ -80,7 +135,8 @@ token nextToken(FILE * fp)
         strcpy(nextToken.name, tokenName);
         return nextToken;
     }
-    else switch (next){
+
+    else switch (next){ // Read special characters
         case  '+':
             nextToken.name = (char*)malloc(2 * sizeof(char));
             nextToken.name[0] = fgetc(fp);
@@ -236,7 +292,7 @@ bool skipComments(FILE * fp){ // returns true if any comments were skipped, othe
             do{
                 c = fgetc(fp);
                 if (c == '*' && fpeek(fp) == '/'){ //end of comment found
-                    c = fgetc(fp); // next thing on the buffer is the next char after the comment
+                    c = fgetc(fp); // after this line, next thing on the buffer is the next char after the comment
                     return true;
                 }
             } while (c != EOF);
@@ -246,4 +302,12 @@ bool skipComments(FILE * fp){ // returns true if any comments were skipped, othe
             return false;
         }
     }
+}
+
+void endToken(FILE * fp){ // skips the rest of the string of letters and digits
+    char next;
+    do{
+        next = fgetc(fp);
+    } while (isalpha(next) || isdigit(next));
+    ungetc(next, fp);
 }
