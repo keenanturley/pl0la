@@ -3,16 +3,26 @@
 
 list tokenize(char * file_path){
     FILE * fp = fopen(file_path, "r");
-    list * tokens;
+    list * tokenList;
 
+    token = null;
 
+    while (fpeek(fp) != EOF){
+        token = nextToken(file_path);
+        add(&tokenList, token;
+    }
 
     return tokens
 }
 
-int fpeek(FILE * fp)
+token nextToken(char * file_path)
 {
-    int c = fgetc(fp);
+    
+}
+
+char fpeek(FILE * fp)
+{
+    char c = fgetc(fp);
     ungetc(c, fp);
     return c;
 }
