@@ -10,7 +10,7 @@ list *create_list(int initial_capacity) {
     list * l = malloc(sizeof(list));
     l->capacity = initial_capacity;
     l->size = 0;
-    l->tokens = malloc(sizeof(token) * l->capacity);
+    l->tokens = (list *)malloc(sizeof(token) * l->capacity);
 
     return l;
 }
@@ -23,7 +23,7 @@ void ensure_capacity(list *l) {
         exit(EXIT_FAILURE);
     }
 
-    l->capacity *= 2;
+    l->capacity *= CAPACITY_MULTIPLIER;
     l->tokens = realloc(l->tokens, sizeof(token) * l->capacity);
     
     if (l->tokens == NULL) {
