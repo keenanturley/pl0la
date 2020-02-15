@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include "list.h"
 
 void print_file(char *file_path) {
     // Try to open the file
@@ -22,4 +23,23 @@ void print_file(char *file_path) {
 
     // Release lock by closing file
     fclose(fp);
+}
+
+void print_lexeme_table(list *l) {
+    // Headers
+    printf("%-11s    %s\n", "lexeme", "token type");
+    for (int i = 0; i < l->size; i++) {
+        token *t = get(l, i);
+        printf("%-11s    %d\n", t->name, t->type);
+    }
+}
+
+void print_lexeme_list(list *l) {
+    for (int i = 0; i < l->size; i++) {
+        token *t = get(l, i);
+        printf("%d ", t->type);
+        if (t->type == identsym) {
+            printf("%s ", t->name);
+        }
+    }
 }
