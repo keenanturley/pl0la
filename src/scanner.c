@@ -54,6 +54,7 @@ token nextToken(FILE * fp){
             if (i >= MAX_NUMBER_LENGTH){ // Number too long
                 do{
                     if (i >= MAX_IDENT_LENGTH){ // Number too long and Not an identifier
+                        tokenName[MAX_IDENT_LENGTH] = '\0';
                         fprintf(stderr, "Error: Number starting with \"%s\" too long. Max length 5 digits\n", tokenName);
                         exit(EXIT_FAILURE);
                     }
@@ -64,6 +65,7 @@ token nextToken(FILE * fp){
                 if (isalpha(next)){ // Variable does not start with letter.
                     do{
                         if (i >= MAX_IDENT_LENGTH){ // Variable does not start with letter AND identifier too long
+                            tokenName[MAX_IDENT_LENGTH] = '\0';
                             fprintf(stderr, "Error: Identifier starting with \"%s\" does not begin with a letter\n", tokenName);
                             fprintf(stderr, "Error: Identifier starting with \"%s\" too long. Max length 11 characters\n", tokenName);
                             exit(EXIT_FAILURE);
@@ -76,6 +78,7 @@ token nextToken(FILE * fp){
                     exit(EXIT_FAILURE);
                 }
                 // Number just too long, next token not a letter
+                tokenName[i] = '\0';
                 fprintf(stderr, "Error: Number starting with \"%s\" too long. Max length 5 digits\n", tokenName);
                 exit(EXIT_FAILURE);
             }
@@ -86,6 +89,7 @@ token nextToken(FILE * fp){
         if (isalpha(next)){ // Variable does not start with letter.
             do{
                 if (i >= MAX_IDENT_LENGTH){ // Variable does not start with letter AND identifier too long
+                    tokenName[MAX_IDENT_LENGTH] = '\0';
                     fprintf(stderr, "Error: Identifier starting with \"%s\" does not begin with a letter\n", tokenName);
                     fprintf(stderr, "Error: Identifier starting with \"%s\" too long. Max length 11 characters\n", tokenName);
                     exit(EXIT_FAILURE);
@@ -94,6 +98,7 @@ token nextToken(FILE * fp){
 
                 next = fpeek(fp);
             } while (isalpha(next) || isdigit(next));
+            tokenName[i] = '\0';
             fprintf(stderr, "Error: Identifier \"%s\" does not begin with a letter\n", tokenName);
             exit(EXIT_FAILURE);
         }
@@ -220,11 +225,14 @@ token nextToken(FILE * fp){
                 return nextToken;
             }
             else{ // colon by itself is invalid
+                tokenName[1] = '\0';
                 fprintf(stderr, "Error: \"%s\" is an invalid symbol\n", tokenName);
                 exit(EXIT_FAILURE);
             }
         default: // Invalid symbol
-            fprintf(stderr, "Error: \"%s\" is an invalid symbol\n", nextToken.name);
+            tokenName[0] = fgetc(fp);
+            tokenName[1] = '\0';
+            fprintf(stderr, "Error: \"%s\" is an invalid symbol\n", tokenName);
             exit(EXIT_FAILURE);
     }
 }
