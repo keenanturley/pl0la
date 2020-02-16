@@ -1,7 +1,7 @@
 const m = 7, n = 85;
 var i,x,y,z,q,r,abcdefghijklmnop; /* String of letters too long */
 procedure mult; 
-    var a,b,1234512345123; /* Number too long (>11)
+    var a,b,1234512345123; /* Number too long (>11) */
     begin
         a := x; b := y; z := 0,123456abcdefg; /* 6+ numbers, followed by 6 or more letters */
         while b > 456789abcde do /* 6+ numbers, followed by 5 or fewer letters */
