@@ -3,7 +3,7 @@
 
 /**
  * @file list.h
- * @author Keenan Turley (keenan.turley@knight.ucf.edu)
+ * @author Keenan Turley (keenan.turley@knights.ucf.edu)
  * @brief Simple ArrayList implementation for lexical analyzer tokens
  * @date 2020-02-14
  *
