@@ -3,6 +3,11 @@
 #include "list.h"
 #include "token.h"
 
+// Initial capacity of list if none was specified
+const int DEFAULT_INITIAL_CAPACITY = 8;
+// Multiplier to use when resizing list
+const int CAPACITY_MULTIPLIER = 2;
+
 list *create_list() {
     list * l = (list *)malloc(sizeof(list));
     l->capacity = DEFAULT_INITIAL_CAPACITY;

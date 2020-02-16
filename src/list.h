@@ -17,11 +17,6 @@ typedef struct list {
     int capacity;
 } list;
 
-// Initial capacity of list if none was specified
-const int DEFAULT_INITIAL_CAPACITY = 8;
-// Multiplier to use when resizing list
-const int CAPACITY_MULTIPLIER = 2;
-
 /**
  * @brief Create a list
  *
