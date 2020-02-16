@@ -1,9 +1,11 @@
 #include <stdio.h>
 #include <stdbool.h>
+#include <stdlib.h>
 #include <string.h>
 #include <ctype.h>
 #include "token.h"
 #include "scanner.h"
+#include "list.h"
 
 list * tokenize(char * file_path){
     FILE * fp = fopen(file_path, "r");
@@ -11,12 +13,12 @@ list * tokenize(char * file_path){
     token newToken;
 
     while (fpeek(fp) != EOF && (skipWhiteSpace(fp) || skipComments(fp))); // Skips white space and comments
-    
+
     while (fpeek(fp) != EOF){
         newToken = nextToken(fp);
-        
+
         add(tokenList, newToken); // Note: does not verify that token was read without error
-        
+
         while (fpeek(fp) != EOF && (skipWhiteSpace(fp) || skipComments(fp))); // Skips white space and comments
     }
 
@@ -49,7 +51,7 @@ token nextToken(FILE * fp){
 
             next = fpeek(fp);
         } while (isalpha(next) || isdigit(next));
-        
+
         tokenName[i] = '\0';
         nextToken.type = evaluate_token_type(tokenName);
         nextToken.name = (char*)malloc(i * sizeof(char));
@@ -72,7 +74,7 @@ token nextToken(FILE * fp){
                         return nextToken;
                     }
                     tokenName[i++] = fgetc(fp);
-                    
+
                     next = fpeek(fp);
                 } while(isdigit(next));
                 if (isalpha(next)){ // Variable does not start with letter.
@@ -85,7 +87,7 @@ token nextToken(FILE * fp){
                             nextToken.name = (char*)malloc(i * sizeof(char));
                             strcpy(nextToken.name, tokenName);
                             endToken(fp);
-                            return nextToken;   
+                            return nextToken;
                         }
                         tokenName[i++] = fgetc(fp);
 
@@ -107,7 +109,7 @@ token nextToken(FILE * fp){
                 return nextToken;
             }
             tokenName[i++] = fgetc(fp);
-            
+
             next = fpeek(fp);
         } while (isdigit(next));
         if (isalpha(next)){ // Variable does not start with letter.
@@ -120,7 +122,7 @@ token nextToken(FILE * fp){
                     nextToken.name = (char*)malloc(i * sizeof(char));
                     strcpy(nextToken.name, tokenName);
                     endToken(fp);
-                    return nextToken;   
+                    return nextToken;
                 }
                 tokenName[i++] = fgetc(fp);
 
@@ -159,7 +161,7 @@ token nextToken(FILE * fp){
             nextToken.name[1] = '\0';
             nextToken.type = multsym;
             return nextToken;
-        case  '/': 
+        case  '/':
             nextToken.name = (char*)malloc(2 * sizeof(char));
             nextToken.name[0] = fgetc(fp);
             nextToken.name[1] = '\0';
@@ -286,7 +288,7 @@ bool skipWhiteSpace(FILE * fp){
     do{
         c = fgetc(fp);
         i++;
-    } while (isspace(c)); 
+    } while (isspace(c));
     ungetc(c, fp);
     return (i > 1) ? true : false;
 }
