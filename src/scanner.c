@@ -13,8 +13,8 @@ list * tokenize(char * file_path){
 
     while (skipWhiteSpace(fp) || skipComments(fp)); // Skips white space and comments
 
-    while (fpeek(fp) != EOF){
-        add(tokenList, nextToken(fp)); // Note: does not verify that token was read without error
+    while (fpeek(fp) != EOF){ // Continue to add tokens til end of file
+        add(tokenList, nextToken(fp)); 
         while (skipWhiteSpace(fp) || skipComments(fp)); // Skips white space and comments
     } 
 
@@ -22,9 +22,6 @@ list * tokenize(char * file_path){
     return tokenList;
 }
 
-/* TODO: figure out what to do with rest of token name
- * (for identifiers and numbers) after current token name has become too long
- */
 token nextToken(FILE * fp){
     char tokenName[(MAX_IDENT_LENGTH + 1)];
     token nextToken;
@@ -108,7 +105,7 @@ token nextToken(FILE * fp){
 
             next = fpeek(fp);
         } while (isdigit(next));
-        if (isalpha(next)){ // Variable does not start with letter.
+        if (isalpha(next)){ // Variable does not start with letter
             nextToken.type = nulsym;
             do{
                 if (i >= MAX_IDENT_LENGTH){ // Variable does not start with letter AND identifier too long
@@ -278,7 +275,7 @@ char fpeek(FILE * fp){
     return c;
 }
 
-bool skipWhiteSpace(FILE * fp){
+bool skipWhiteSpace(FILE * fp){ // returns true if any white space is skipped, otherwise false
     char c;
     int i = 0;
     do{
@@ -289,7 +286,7 @@ bool skipWhiteSpace(FILE * fp){
     return (i > 1) ? true : false;
 }
 
-bool skipComments(FILE * fp){ // returns true if any comments were skipped, otherwise false
+bool skipComments(FILE * fp){ // returns true if any comments are skipped, otherwise false
     char c = fpeek(fp);
     if (c == '/'){
         c = fgetc(fp);
@@ -302,7 +299,7 @@ bool skipComments(FILE * fp){ // returns true if any comments were skipped, othe
                     return true;
                 }
             } while (c != EOF);
-            fprintf(stderr, "Error: Comment never closed");
+            fprintf(stderr, "Error: Comment never closed\n");
         }
         else{
             ungetc(c, fp);
@@ -317,4 +314,5 @@ void endToken(FILE * fp){ // skips the rest of the string of letters and digits
         next = fgetc(fp);
     } while (isalpha(next) || isdigit(next));
     ungetc(next, fp);
+    return;
 }
