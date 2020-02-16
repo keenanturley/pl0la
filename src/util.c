@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include "util.h"
 #include "list.h"
 
 void print_file(char *file_path) {
