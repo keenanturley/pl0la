@@ -302,6 +302,7 @@ bool skipComments(FILE * fp){ // returns true if any comments were skipped, othe
                     return true;
                 }
             } while (c != EOF);
+            fprintf(stderr, "Error: Comment never closed");
         }
         else{
             ungetc(c, fp);
