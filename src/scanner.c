@@ -43,8 +43,7 @@ token nextToken(FILE * fp){
 
         tokenName[i] = '\0';
         nextToken.type = evaluate_token_type(tokenName);
-        nextToken.name = (char*)malloc((i + 1) * sizeof(char));
-        strncpy(nextToken.name, tokenName, i * sizeof(char));
+        nextToken.name = strdup(tokenName);
         return nextToken;
     }
 
@@ -105,8 +104,7 @@ token nextToken(FILE * fp){
         // Number appropriately sized. This is an actual number token
         tokenName[i] = '\0';
         nextToken.type = numbersym;
-        nextToken.name = (char*)malloc((i + 1) * sizeof(char));
-        strncpy(nextToken.name, tokenName, (i + 1) * sizeof(char));
+        nextToken.name = strdup(tokenName);
         return nextToken;
     }
 
@@ -170,23 +168,20 @@ token nextToken(FILE * fp){
             tokenName[1] = fgetc(fp);
             if (tokenName[1] == '>'){ // <>
                 tokenName[2] = '\0';
-                nextToken.name = (char*)malloc(3 * sizeof(char));
-                strncpy(nextToken.name, tokenName, (MAX_IDENT_LENGTH + 1) * sizeof(char));
+                nextToken.name = strdup(tokenName);
                 nextToken.type = neqsym;
                 return nextToken;
             }
             else if (tokenName[1] == '='){ // <=
                 tokenName[2] = '\0';
-                nextToken.name = (char*)malloc(3 * sizeof(char));
-                strncpy(nextToken.name, tokenName, (MAX_IDENT_LENGTH + 1) * sizeof(char));
+                nextToken.name = strdup(tokenName);
                 nextToken.type = leqsym;
                 return nextToken;
             }
             else{ // <
                 ungetc(tokenName[1], fp);
                 tokenName[1] = '\0';
-                nextToken.name = (char*)malloc(2 * sizeof(char));
-                strncpy(nextToken.name, tokenName, (MAX_IDENT_LENGTH + 1) * sizeof(char));
+                nextToken.name = strdup(tokenName);
                 nextToken.type = lessym;
                 return nextToken;
             }
@@ -195,16 +190,14 @@ token nextToken(FILE * fp){
             tokenName[1] = fgetc(fp);
             if (tokenName[1] == '='){ // >=
                 tokenName[2] = '\0';
-                nextToken.name = (char*)malloc(3 * sizeof(char));
-                strncpy(nextToken.name, tokenName, (MAX_IDENT_LENGTH + 1) * sizeof(char));
+                nextToken.name = strdup(tokenName);
                 nextToken.type = geqsym;
                 return nextToken;
             }
             else{ // >
                 ungetc(tokenName[1], fp);
                 tokenName[1] = '\0';
-                nextToken.name = (char*)malloc(2 * sizeof(char));
-                strncpy(nextToken.name, tokenName, (MAX_IDENT_LENGTH + 1) * sizeof(char));
+                nextToken.name = strdup(tokenName);
                 nextToken.type = gtrsym;
                 return nextToken;
             }
@@ -219,8 +212,7 @@ token nextToken(FILE * fp){
             tokenName[1] = fgetc(fp);
             if (tokenName[1] == '='){ // :=
                 tokenName[2] = '\0';
-                nextToken.name = (char*)malloc(3 * sizeof(char));
-                strncpy(nextToken.name, tokenName, 3 * sizeof(char));
+                nextToken.name = strdup(tokenName);
                 nextToken.type = becomessym;
                 return nextToken;
             }
