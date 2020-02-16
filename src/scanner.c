@@ -78,7 +78,7 @@ token nextToken(FILE * fp){
                     do{
                         if (i >= MAX_IDENT_LENGTH){ // Variable does not start with letter AND identifier too long
                             tokenName[MAX_IDENT_LENGTH] = '\0';
-                            fprintf(stderr, "Error: Identifier \"%s\" does not begin with a letter\n", tokenName);
+                            fprintf(stderr, "Error: Identifier starting with \"%s\" does not begin with a letter\n", tokenName);
                             fprintf(stderr, "Error: Identifier starting with \"%s\" too long. Max length 11 characters\n", tokenName);
                             nextToken.name = (char*)malloc(MAX_IDENT_LENGTH * sizeof(char));
                             strcpy(nextToken.name, tokenName);
@@ -113,7 +113,7 @@ token nextToken(FILE * fp){
             do{
                 if (i >= MAX_IDENT_LENGTH){ // Variable does not start with letter AND identifier too long
                     tokenName[MAX_IDENT_LENGTH] = '\0';
-                    fprintf(stderr, "Error: Identifier \"%s\" does not begin with a letter\n", tokenName);
+                    fprintf(stderr, "Error: Identifier starting with \"%s\" does not begin with a letter\n", tokenName);
                     fprintf(stderr, "Error: Identifier starting with \"%s\" too long. Max length 11 characters\n", tokenName);
                     nextToken.name = (char*)malloc(MAX_IDENT_LENGTH * sizeof(char));
                     strcpy(nextToken.name, tokenName);
