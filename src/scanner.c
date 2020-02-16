@@ -265,7 +265,7 @@ token nextToken(FILE * fp){
             nextToken.name = (char*)malloc(2 * sizeof(char));
             nextToken.name[0] = fgetc(fp);
             nextToken.name[1] = '\0';
-            fprintf(stderr, "Error: \"%s\" is an invalid symbol\n", tokenName);
+            fprintf(stderr, "Error: \"%s\" is an invalid symbol\n", nextToken.name);
             nextToken.type = nulsym;
             return nextToken;
             break;
