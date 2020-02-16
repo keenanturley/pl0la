@@ -46,4 +46,5 @@ void print_lexeme_list(list *l) {
             printf("%s ", t->name);
         }
     }
+    printf("\n");
 }
