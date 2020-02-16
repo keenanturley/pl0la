@@ -38,7 +38,7 @@ token nextToken(FILE * fp){
                 tokenName[MAX_IDENT_LENGTH] = '\0';
                 fprintf(stderr, "Error: Identifier starting with \"%s\" too long. Max length 11 characters\n", tokenName);
                 nextToken.type = nulsym;
-                nextToken.name = (char*)malloc((MAX_IDENT_LENGTH) * sizeof(char));
+                nextToken.name = (char*)malloc((MAX_IDENT_LENGTH + 1) * sizeof(char));
                 strcpy(nextToken.name, tokenName);
                 endToken(fp);
                 return nextToken;
@@ -64,7 +64,7 @@ token nextToken(FILE * fp){
                         tokenName[MAX_IDENT_LENGTH] = '\0';
                         fprintf(stderr, "Error: Number starting with \"%s\" too long. Max length 5 digits\n", tokenName);
                         nextToken.type = nulsym;
-                        nextToken.name = (char*)malloc((MAX_IDENT_LENGTH) * sizeof(char));
+                        nextToken.name = (char*)malloc((MAX_IDENT_LENGTH + 1) * sizeof(char));
                         strcpy(nextToken.name, tokenName);
                         endToken(fp);
                         return nextToken;
@@ -80,7 +80,7 @@ token nextToken(FILE * fp){
                             tokenName[MAX_IDENT_LENGTH] = '\0';
                             fprintf(stderr, "Error: Identifier starting with \"%s\" does not begin with a letter\n", tokenName);
                             fprintf(stderr, "Error: Identifier starting with \"%s\" too long. Max length 11 characters\n", tokenName);
-                            nextToken.name = (char*)malloc(MAX_IDENT_LENGTH * sizeof(char));
+                            nextToken.name = (char*)malloc((MAX_IDENT_LENGTH + 1) * sizeof(char));
                             strcpy(nextToken.name, tokenName);
                             endToken(fp);
                             return nextToken;
@@ -115,7 +115,7 @@ token nextToken(FILE * fp){
                     tokenName[MAX_IDENT_LENGTH] = '\0';
                     fprintf(stderr, "Error: Identifier starting with \"%s\" does not begin with a letter\n", tokenName);
                     fprintf(stderr, "Error: Identifier starting with \"%s\" too long. Max length 11 characters\n", tokenName);
-                    nextToken.name = (char*)malloc(MAX_IDENT_LENGTH * sizeof(char));
+                    nextToken.name = (char*)malloc((MAX_IDENT_LENGTH + 1) * sizeof(char));
                     strcpy(nextToken.name, tokenName);
                     endToken(fp);
                     return nextToken;
