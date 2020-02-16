@@ -62,7 +62,7 @@ token nextToken(FILE * fp){
                 do{
                     if (i == MAX_IDENT_LENGTH + 1){ // Number too long and Not an identifier
                         tokenName[i] = '\0';
-                        fprintf(stderr, "Error: Number starting with \"%s\" too long. Max length 5 digits", tokenName);
+                        fprintf(stderr, "Error: Number starting with \"%s\" too long. Max length 5 digits\n", tokenName);
                         nextToken.type = nulsym;
                         nextToken.name = (char*)malloc(i * sizeof(char));
                         strcpy(nextToken.name, tokenName);
@@ -78,8 +78,8 @@ token nextToken(FILE * fp){
                     do{
                         if (i == MAX_IDENT_LENGTH + 1){ // Variable does not start with letter AND identifier too long
                             tokenName[i] = '\0';
-                            fprintf(stderr, "Error: Identifier \"%s\" does not begin with a letter", tokenName);
-                            fprintf(stderr, "Error: Identifier starting with \"%s\" too long. Max length 11 characters", tokenName);
+                            fprintf(stderr, "Error: Identifier \"%s\" does not begin with a letter\n", tokenName);
+                            fprintf(stderr, "Error: Identifier starting with \"%s\" too long. Max length 11 characters\n", tokenName);
                             nextToken.name = (char*)malloc(i * sizeof(char));
                             strcpy(nextToken.name, tokenName);
                             endToken(fp);
@@ -90,14 +90,14 @@ token nextToken(FILE * fp){
                         next = fpeek(fp);
                     } while (isalpha(next) || isdigit(next));
                     tokenName[i] = '\0';
-                    fprintf(stderr, "Error: Identifier \"%s\" does not begin with a letter", tokenName);
+                    fprintf(stderr, "Error: Identifier \"%s\" does not begin with a letter\n", tokenName);
                     nextToken.name = (char*)malloc(i * sizeof(char));
                     strcpy(nextToken.name, tokenName);
                     return nextToken;
                 }
                 // Number just too long, next token not a letter
                 tokenName[i] = '\0';
-                fprintf(stderr, "Error: Number starting with \"%s\" too long. Max length 5 digits", tokenName);
+                fprintf(stderr, "Error: Number starting with \"%s\" too long. Max length 5 digits\n", tokenName);
                 nextToken.type = nulsym;
                 nextToken.name = (char*)malloc(i * sizeof(char));
                 strcpy(nextToken.name, tokenName);
@@ -113,8 +113,8 @@ token nextToken(FILE * fp){
             do{
                 if (i == MAX_IDENT_LENGTH + 1){ // Variable does not start with letter AND identifier too long
                     tokenName[i] = '\0';
-                    fprintf(stderr, "Error: Identifier \"%s\" does not begin with a letter", tokenName);
-                    fprintf(stderr, "Error: Identifier starting with \"%s\" too long. Max length 11 characters", tokenName);
+                    fprintf(stderr, "Error: Identifier \"%s\" does not begin with a letter\n", tokenName);
+                    fprintf(stderr, "Error: Identifier starting with \"%s\" too long. Max length 11 characters\n", tokenName);
                     nextToken.name = (char*)malloc(i * sizeof(char));
                     strcpy(nextToken.name, tokenName);
                     endToken(fp);
@@ -125,7 +125,7 @@ token nextToken(FILE * fp){
                 next = fpeek(fp);
             } while (isalpha(next) || isdigit(next));
             tokenName[i] = '\0';
-            fprintf(stderr, "Error: Identifier \"%s\" does not begin with a letter", tokenName);
+            fprintf(stderr, "Error: Identifier \"%s\" does not begin with a letter\n", tokenName);
             nextToken.name = (char*)malloc(i * sizeof(char));
             strcpy(nextToken.name, tokenName);
             return nextToken;
@@ -255,7 +255,7 @@ token nextToken(FILE * fp){
             else{ // colon by itself is invalid
                 ungetc(tokenName[1], fp);
                 tokenName[1] = '\0';
-                fprintf(stderr, "Error: token \"%s\" is invalid", tokenName);
+                fprintf(stderr, "Error: \"%s\" is an invalid symbol\n", tokenName);
                 nextToken.name = (char*)malloc(2 * sizeof(char));
                 strcpy(nextToken.name, tokenName);
                 nextToken.type = nulsym;
@@ -265,7 +265,7 @@ token nextToken(FILE * fp){
             nextToken.name = (char*)malloc(2 * sizeof(char));
             nextToken.name[0] = fgetc(fp);
             nextToken.name[1] = '\0';
-            fprintf(stderr, "Error: token \"%s\" is invalid", tokenName);
+            fprintf(stderr, "Error: \"%s\" is an invalid symbol\n", tokenName);
             nextToken.type = nulsym;
             return nextToken;
             break;
