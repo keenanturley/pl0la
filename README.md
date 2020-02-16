@@ -52,8 +52,8 @@ Where `file-path` is the path to the source file you want to analyze.
 
     - For example, the format of error output was not specified, so we made the decision to detect as many errors as possible and report them.
 
-    - After printing the errors, we chose to still print the lexeme table and list, as to be transparent about the data, even though the specification makes no mention of that desired behavior.
+    - After printing the errors, we chose to still print the lexeme table and list so as to be transparent about the data, even though the specifications make no mention of whether this behavior is desired.
 
-    - When an error is encountered, the associated token is still added to the token table, using the nul symbol as its type, because it seemed like the most appropriate choice to us.
+    - When an error is encountered, the invalid token is still added to the token table, using nulsym as its token type since the specifications do not describe a different use for nulsym.
 
-    - The name of the erroneous token is truncated to the maximum length
+    - The names of the erroneous identifiers that exceed maximum length are truncated to the maximum length.
