@@ -3,7 +3,7 @@
 
 #include <stdio.h>
 #include <stdbool.h>
-#include "list.c"
+#include "list.h"
 
 /**
  * @file scanner.h
