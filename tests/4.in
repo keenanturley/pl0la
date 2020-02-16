@@ -4,7 +4,7 @@ procedure mult;
     var a,b,1234512345123; /* Number too long (>11)
     begin
         a := x; b := y; z := 0,123456abcdefg; /* 6+ numbers, followed by 6 or more letters */
-        5whilewhilee b > 456789abcde do /* 6+ numbers, followed by 5 or fewer letters */
+        while b > 456789abcde do /* 6+ numbers, followed by 5 or fewer letters */
         begin
             if odd x then z := z+a;
                 a := 2345679*a; /* Number too long (>5 and <12) */
