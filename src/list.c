@@ -52,6 +52,8 @@ list *free_list(list *l) {
         token *t = get(l, i);
         free(t->name);
     }
+    // Free the tokens array
+    free(l->tokens);
     // Free the list itself
     free(l);
     return NULL;
