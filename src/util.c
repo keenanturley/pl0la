@@ -42,5 +42,8 @@ void print_lexeme_list(list *l) {
         if (t->type == identsym) {
             printf("%s ", t->name);
         }
+        if (t->type == numbersym) {
+            printf("%s ", t->name);
+        }
     }
 }
