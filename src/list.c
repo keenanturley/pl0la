@@ -1,16 +1,17 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include "list.h"
+#include "token.h"
 
 list *create_list() {
     return create_list(DEFAULT_INITIAL_CAPACITY);
 }
 
 list *create_list(int initial_capacity) {
-    list * l = malloc(sizeof(list));
+    list * l = (list *)malloc(sizeof(list));
     l->capacity = initial_capacity;
     l->size = 0;
-    l->tokens = (list *)malloc(sizeof(token) * l->capacity);
+    l->tokens = (token *)malloc(sizeof(token) * l->capacity);
 
     return l;
 }
@@ -24,8 +25,8 @@ void ensure_capacity(list *l) {
     }
 
     l->capacity *= CAPACITY_MULTIPLIER;
-    l->tokens = realloc(l->tokens, sizeof(token) * l->capacity);
-    
+    l->tokens = (token *)realloc(l->tokens, sizeof(token) * l->capacity);
+
     if (l->tokens == NULL) {
         fprintf(stderr, "ERROR: List reallocation failed\n");
         exit(EXIT_FAILURE);
@@ -34,7 +35,7 @@ void ensure_capacity(list *l) {
 
 void add(list *l, token t) {
     ensure_capacity(l);
-    
+
     l->tokens[l->size] = t;
     l->size++;
 }
