@@ -6,7 +6,7 @@
  * @author Keenan Turley (keenan.turley@knight.ucf.edu)
  * @brief Simple ArrayList implementation for lexical analyzer tokens
  * @date 2020-02-14
- * 
+ *
  */
 
 #include "token.h"
@@ -24,47 +24,36 @@ const int CAPACITY_MULTIPLIER = 2;
 
 /**
  * @brief Create a list
- * 
- * Dyanmically allocates and returns a list with the default initial capicity, 
+ *
+ * Dyanmically allocates and returns a list with the default initial capicity,
  * defined above.
  * The caller should call free_list() when finished with the list.
- * 
+ *
  * @return list* The created list
  */
 list *create_list();
 
 /**
- * @brief Create a list
- * 
- * Dynamically allocates and returns a list with the given inital capacity.
- * The caller should call free_list() when finished with the list.
- * 
- * @param initial_capacity The desired initial capacity of the list
- * @return list* The created list
- */
-list *create_list(int initial_capacity);
-
-/**
  * @brief Ensure there's enough space for another token
- * 
+ *
  * Checks the given list's size against its capacity.
- * 
+ *
  * If the size is less than the capacity, nothing is done.
- * If the size is greater than the capacity, an error is logged to stderr and 
+ * If the size is greater than the capacity, an error is logged to stderr and
  * the program is exited with EXIT_FAILURE.
- * If the size is equal to the capacity, the list is reallocated with twice 
+ * If the size is equal to the capacity, the list is reallocated with twice
  * capacity as before. (capacity *= 2)
- * 
- * If the reallocation fails, an error will be logged to stderr and the 
+ *
+ * If the reallocation fails, an error will be logged to stderr and the
  * program will exit with EXIT_FAILURE.
- * 
+ *
  * @param l The list whose capacity to ensure
  */
 void ensure_capacity(list *l);
 
 /**
  * @brief Add a token to the end of the list
- * 
+ *
  * @param l The list to add to
  * @param t The token to add
  */
@@ -72,7 +61,7 @@ void add(list *l, token t);
 
 /**
  * @brief Returns the token at index i in the list
- * 
+ *
  * @param l The list to look in
  * @param i The index of the desired token
  * @return token* A pointer to the desired token
@@ -81,7 +70,7 @@ token *get(list *l, int i);
 
 /**
  * @brief Frees the list and its components
- * 
+ *
  * @param l The list to free
  * @return list* Always NULL
  */

@@ -4,12 +4,8 @@
 #include "token.h"
 
 list *create_list() {
-    return create_list(DEFAULT_INITIAL_CAPACITY);
-}
-
-list *create_list(int initial_capacity) {
     list * l = (list *)malloc(sizeof(list));
-    l->capacity = initial_capacity;
+    l->capacity = DEFAULT_INITIAL_CAPACITY;
     l->size = 0;
     l->tokens = (token *)malloc(sizeof(token) * l->capacity);
 
