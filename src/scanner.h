@@ -1,5 +1,6 @@
 //scanner.h
 #include <stdio.h>
+#include <stdbool.h>
 #include "list.c"
 
 /**
@@ -7,7 +8,7 @@
  * @author Alexander Desmond (alexdesmond@knights.ucf.edu)
  * @brief Scanner and tokenizer for pl0 input files
  * @date 2020-02-14
- * 
+ *
  */
 
 #define MAX_IDENT_LENGTH 11
