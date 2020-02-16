@@ -1,4 +1,6 @@
-//scanner.h
+#ifndef SCANNER_H
+#define SCANNER_H
+
 #include <stdio.h>
 #include <stdbool.h>
 #include "list.c"
@@ -20,3 +22,5 @@ char fpeek(FILE * fp);
 bool skipWhiteSpace(FILE * fp);
 bool skipComments(FILE * fp);
 void endToken(FILE * fp);
+
+#endif /* SCANNER_H */
