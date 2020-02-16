@@ -10,17 +10,13 @@
 list * tokenize(char * file_path){
     FILE * fp = fopen(file_path, "r");
     list * tokenList = create_list();
-    token newToken;
 
-    while (fpeek(fp) != EOF && (skipWhiteSpace(fp) || skipComments(fp))); // Skips white space and comments
+    while (skipWhiteSpace(fp) || skipComments(fp)); // Skips white space and comments
 
-    do{
-        newToken = nextToken(fp);
-
-        add(tokenList, newToken); // Note: does not verify that token was read without error
-
-        while (fpeek(fp) != EOF && (skipWhiteSpace(fp) || skipComments(fp))); // Skips white space and comments
-    } while (fpeek(fp) != EOF);
+    while (fpeek(fp) != EOF){
+        add(tokenList, nextToken(fp)); // Note: does not verify that token was read without error
+        while (skipWhiteSpace(fp) || skipComments(fp)); // Skips white space and comments
+    } 
 
     fclose(fp);
     return tokenList;
