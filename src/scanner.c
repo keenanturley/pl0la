@@ -36,7 +36,7 @@ token nextToken(FILE * fp){
         do{
             if (i >= MAX_IDENT_LENGTH) { // Identifier too long
                 tokenName[MAX_IDENT_LENGTH] = '\0';
-                fprintf(stderr, "Error: Identifier starting with \"%s\" too long. Max length 11 characters", tokenName);
+                fprintf(stderr, "Error: Identifier starting with \"%s\" too long. Max length 11 characters\n", tokenName);
                 nextToken.type = nulsym;
                 nextToken.name = (char*)malloc((MAX_IDENT_LENGTH) * sizeof(char));
                 strcpy(nextToken.name, tokenName);
