@@ -1,5 +1,5 @@
-pm0la : main.o list.o scanner.o token.o util.o
-	gcc -o pm0la main.o list.o scanner.o token.o util.o
+pl0la : main.o list.o scanner.o token.o util.o
+	gcc -o pl0la main.o list.o scanner.o token.o util.o
 
 main.o : main.c util.o scanner.o list.o
 	gcc -c main.c
@@ -17,4 +17,4 @@ scanner.o : scanner.c scanner.h token.h list.h
 	gcc -c scanner.c
 
 clean:
-	rm -f pm0la *.o
+	rm -f pl0la *.o
