@@ -47,6 +47,12 @@ token *get(list *l, int i) {
 }
 
 list *free_list(list *l) {
+    // Free the string inside each token
+    for (int i = 0; i < l->size; i++) {
+        token *t = get(l, i);
+        free(t->name);
+    }
+    // Free the list itself
     free(l);
     return NULL;
 }
