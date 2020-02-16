@@ -21,6 +21,8 @@ void print_file(char *file_path) {
         printf("%s", line);
     }
 
+    // Free the line from getline
+    free(line);
 
     // Release lock by closing file
     fclose(fp);
