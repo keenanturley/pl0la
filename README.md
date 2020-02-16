@@ -42,7 +42,7 @@ Where `file-path` is the path to the source file you want to analyze.
 
 Note: Output is printed to stdout, which should be redirected if a test case output file is desired.
 
-Errors are printed to stderr.
+Errors are printed to stderr after the source program printout and before the lexeme table printout.
 
 ## To the TA
 
