@@ -47,8 +47,8 @@ token nextToken(FILE * fp){
 
         tokenName[i] = '\0';
         nextToken.type = evaluate_token_type(tokenName);
-        nextToken.name = (char*)malloc(i * sizeof(char));
-        strncpy(nextToken.name, tokenName, (MAX_IDENT_LENGTH + 1) * sizeof(char));
+        nextToken.name = (char*)malloc((i + 1) * sizeof(char));
+        strncpy(nextToken.name, tokenName, i * sizeof(char));
         return nextToken;
     }
 
@@ -88,7 +88,7 @@ token nextToken(FILE * fp){
                     } while (isalpha(next) || isdigit(next));
                     tokenName[i] = '\0';
                     fprintf(stderr, "Error: Identifier \"%s\" does not begin with a letter\n", tokenName);
-                    nextToken.name = (char*)malloc(i * sizeof(char));
+                    nextToken.name = (char*)malloc((i + 1) * sizeof(char));
                     strncpy(nextToken.name, tokenName, (MAX_IDENT_LENGTH + 1) * sizeof(char));
                     return nextToken;
                 }
@@ -96,7 +96,7 @@ token nextToken(FILE * fp){
                 tokenName[i] = '\0';
                 fprintf(stderr, "Error: Number starting with \"%s\" too long. Max length 5 digits\n", tokenName);
                 nextToken.type = nulsym;
-                nextToken.name = (char*)malloc(i * sizeof(char));
+                nextToken.name = (char*)malloc((i + 1) * sizeof(char));
                 strncpy(nextToken.name, tokenName, (MAX_IDENT_LENGTH + 1) * sizeof(char));
                 endToken(fp);
                 return nextToken;
@@ -123,15 +123,15 @@ token nextToken(FILE * fp){
             } while (isalpha(next) || isdigit(next));
             tokenName[i] = '\0';
             fprintf(stderr, "Error: Identifier \"%s\" does not begin with a letter\n", tokenName);
-            nextToken.name = (char*)malloc(i * sizeof(char));
+            nextToken.name = (char*)malloc((i + 1) * sizeof(char));
             strncpy(nextToken.name, tokenName, (MAX_IDENT_LENGTH + 1) * sizeof(char));
             return nextToken;
         }
         // Number appropriately sized. This is an actual number token
         tokenName[i] = '\0';
         nextToken.type = numbersym;
-        nextToken.name = (char*)malloc(i * sizeof(char));
-        strncpy(nextToken.name, tokenName, (MAX_IDENT_LENGTH + 1) * sizeof(char));
+        nextToken.name = (char*)malloc((i + 1) * sizeof(char));
+        strncpy(nextToken.name, tokenName, (i + 1) * sizeof(char));
         return nextToken;
     }
 
@@ -245,7 +245,7 @@ token nextToken(FILE * fp){
             if (tokenName[1] == '='){ // :=
                 tokenName[2] = '\0';
                 nextToken.name = (char*)malloc(3 * sizeof(char));
-                strncpy(nextToken.name, tokenName, (MAX_IDENT_LENGTH + 1) * sizeof(char));
+                strncpy(nextToken.name, tokenName, 3 * sizeof(char));
                 nextToken.type = becomessym;
                 return nextToken;
             }
