@@ -1,3 +1,6 @@
 # Compiled files
 *.o
-*.out
+a.out
+
+# Main executable
+src/pm0la
