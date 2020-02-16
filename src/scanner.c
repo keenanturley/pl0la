@@ -14,13 +14,13 @@ list * tokenize(char * file_path){
 
     while (fpeek(fp) != EOF && (skipWhiteSpace(fp) || skipComments(fp))); // Skips white space and comments
 
-    while (fpeek(fp) != EOF){
+    do{
         newToken = nextToken(fp);
 
         add(tokenList, newToken); // Note: does not verify that token was read without error
 
         while (fpeek(fp) != EOF && (skipWhiteSpace(fp) || skipComments(fp))); // Skips white space and comments
-    }
+    } while (fpeek(fp) != EOF);
 
     fclose(fp);
     return tokenList;
