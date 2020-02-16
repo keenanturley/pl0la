@@ -28,4 +28,9 @@ int main(int argc, char **argv) {
     // Print out lexeme list
     printf("Lexeme List:\n");
     print_lexeme_list(token_list);
+
+    // Free the token list
+    free_list(token_list);
+
+    return EXIT_SUCCESS;
 }
