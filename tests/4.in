@@ -1,0 +1,19 @@
+const m = 7, n = 85;
+var i,x,y,z,q,r,abcdefghijklmnop; /* String of letters too long */
+procedure mult; 
+    var a,b,1234512345123; /* Number too long (>11)
+    begin
+        a := x; b := y; z := 0,123456abcdefg; /* 6+ numbers, followed by 6 or more letters */
+        5whilewhilee b > 456789abcde do /* 6+ numbers, followed by 5 or fewer letters */
+        begin
+            if odd x then z := z+a;
+                a := 2345679*a; /* Number too long (>5 and <12) */
+                b := b/23456abcdefg; /* 5 or fewer numbers followed by 7 or more letters (identifier length > 11) */
+        end
+    end;
+
+begin
+    x := 13579acegik; /* 5 or fewer numbers followed by 6 or fewer letters (identifier length <= 11) */
+    y := 2468;
+    call: mult^; /* invalid symbols : and ^ */
+end%. /* invalid symbol % */
