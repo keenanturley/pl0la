@@ -1,3 +1,12 @@
+/**
+ * @file main.c
+ * @author Keenan Turley (keenan.turley@knights.ucf.edu)
+ * @author Alexander Desmond (alexdesmond@knights.ucf.edu)
+ * @brief The PL/0 Lexical Analyzer
+ * @date 2020-02-15
+ *
+ */
+
 #include <stdlib.h>
 #include <stdio.h>
 #include "util.h"
