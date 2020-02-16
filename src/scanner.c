@@ -309,9 +309,9 @@ bool skipComments(FILE * fp){ // returns true if any comments were skipped, othe
         }
         else{
             ungetc(c, fp);
-            return false;
         }
     }
+    return false;
 }
 
 void endToken(FILE * fp){ // skips the rest of the string of letters and digits
