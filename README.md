@@ -40,10 +40,20 @@ Using shell
 
 Where `file-path` is the path to the source file you want to analyze.
 
-Note: Output is printed to stdout, which should be redirected if a test case output file is desired.
+## Notes To the TA
 
-Errors are printed to stderr after the source program printout and before the lexeme table printout.
+- The requested test case output is located in `pl0la/tests/sample.out`.
 
-## To the TA
+- Output is printed to stdout, which should be redirected if a test case output file is desired.
 
-The requested test case output is located in `pl0la/tests/sample.out`.
+- Errors are printed to stderr after the source program printout and before the lexeme table printout.
+
+- Due to the ambiguity of the specification, we took some liberties as to where things go and how some things output.
+
+    - For example, the format of error output was not specified, so we made the decision to detect as many errors as possible and report them.
+
+    - After printing the errors, we chose to still print the lexeme table and list, as to be transparent about the data, even though the specification makes no mention of that desired behavior.
+
+    - When an error is encountered, the associated token is still added to the token table, using the nul symbol as its type, because it seemed like the most appropriate choice to us.
+
+    - The name of the erroneous token is truncated to the maximum length
