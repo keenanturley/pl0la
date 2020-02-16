@@ -1,0 +1,19 @@
+const m = 7, n = 85;
+var i,x,y,z,q,r;
+3procedure mult; /*Error*/
+    var a,b;
+    begin
+        a := x; b := y; z := 0;
+        5whilewhilee b > 0 do /*Error*/
+        begin
+            if odd x then z := z+a;
+                a := 234567*a; /*Error*/
+                b := b/2;
+        end
+    end;
+
+begin
+    x := m;
+    y := n;
+    call mult;
+end.
