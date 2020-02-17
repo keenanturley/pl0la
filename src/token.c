@@ -2,6 +2,9 @@
 #include "token.h"
 
 token_type evaluate_token_type(char *str) {
+    if (strcmp(str, "null") == 0) {
+        return nulsym;
+    }
     if (strcmp(str, "const") == 0) {
         return constsym;
     }
