@@ -46,14 +46,6 @@ Where `file-path` is the path to the source file you want to analyze.
 
 - Output is printed to stdout, which should be redirected if a test case output file is desired.
 
-- Errors are printed to stderr after the source program printout and before the lexeme table printout.
-
-- Due to the ambiguity of the specification, we took some liberties as to where things go and how some things output.
-
-    - For example, the format of error output was not specified, so we made the decision to detect as many errors as possible and report them.
-
-    - After printing the errors, we chose to still print the lexeme table and list so as to be transparent about the data, even though the specifications make no mention of whether this behavior is desired.
-
-    - When an error is encountered, the invalid token is still added to the token table, using nulsym as its token type since the specifications do not describe a different use for nulsym.
-
-    - The names of the erroneous identifiers that exceed maximum length are truncated to the maximum length.
+- If an error is encountered, a description of the error is printed to stderr and the program immediately exits
+  
+  - Since the specification gives no indication as to when and how errors should be printed out, we saw an email from Dr. Montagne that confirms that we should exit after finding an error, so we handle it like that.
