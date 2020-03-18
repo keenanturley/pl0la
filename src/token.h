@@ -16,6 +16,23 @@ typedef struct token {
     token_type type;
 } token;
 
+/**
+ * @brief Returns token_type of string
+ * 
+ * If the given string is not a reserved word token, it will be considered
+ * an identifier
+ * 
+ * @param str The string representation of the token
+ * @return token_type The token type of the string
+ */
 token_type evaluate_token_type(char *str);
+
+/**
+ * @brief Returns string representation of given token
+ * 
+ * @param token A token type to stringify
+ * @return char* String representing the given token
+ */
+char *token_to_string(token_type token);
 
 #endif /* TOKEN_H */

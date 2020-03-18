@@ -39,4 +39,6 @@ void print_lexeme_table(list *l);
  */
 void print_lexeme_list(list *l);
 
+void print_lexeme_list_symbolic(list *l);
+
 #endif /* UTIL_H */

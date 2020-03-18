@@ -1,6 +1,16 @@
 #include <string.h>
 #include "token.h"
 
+// Index into this array matches token_type enum values (map)
+char *token_type_strings[] = {
+    "", "nulsym", "identsym", "numbersym", "plussym", "minussym",
+    "multsym", "slashsym", "oddsym", "eqsym", "neqsym", "lessym", 
+    "leqsym", "gtrsym", "geqsym", "lparentsym", "rparentsym", "commasym", 
+    "semicolonsym", "periodsym", "becomessym", "beginsym", "endsym", 
+    "ifsym", "thensym", "whilesym", "dosym", "", "constsym", "varsym", "",
+    "writesym", "readsym"
+};
+
 token_type evaluate_token_type(char *str) {
     if (strcmp(str, "null") == 0) {
         return nulsym;
@@ -39,4 +49,8 @@ token_type evaluate_token_type(char *str) {
         return oddsym;
     }
     return identsym;
+}
+
+char *token_to_string(token_type token) {
+    return token_type_strings[token];
 }

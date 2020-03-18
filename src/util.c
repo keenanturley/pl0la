@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include "util.h"
 #include "list.h"
+#include "token.h"
 
 void print_file(char *file_path) {
     // Try to open the file
@@ -41,6 +42,20 @@ void print_lexeme_list(list *l) {
     for (int i = 0; i < l->size; i++) {
         token *t = get(l, i);
         printf("%d ", t->type);
+        if (t->type == identsym) {
+            printf("%s ", t->name);
+        }
+        if (t->type == numbersym) {
+            printf("%s ", t->name);
+        }
+    }
+    printf("\n");
+}
+
+void print_lexeme_list_symbolic(list *l) {
+    for (int i = 0; i < l->size; i++) {
+        token *t = get(l, i);
+        printf("%s ", token_to_string(t->type));
         if (t->type == identsym) {
             printf("%s ", t->name);
         }

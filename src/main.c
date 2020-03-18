@@ -37,6 +37,10 @@ int main(int argc, char **argv) {
     // Print out lexeme list
     printf("Lexeme List:\n");
     print_lexeme_list(token_list);
+    printf("\n");
+
+    printf("Lexeme List (Symbolic Representation):\n");
+    print_lexeme_list_symbolic(token_list);
 
     // Free the token list
     free_list(token_list);
