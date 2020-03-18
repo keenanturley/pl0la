@@ -11,12 +11,6 @@ token_type evaluate_token_type(char *str) {
     if (strcmp(str, "var") == 0) {
         return varsym;
     }
-    if (strcmp(str, "procedure") == 0) {
-        return procsym;
-    }
-    if (strcmp(str, "call") == 0) {
-        return callsym;
-    }
     if (strcmp(str, "begin") == 0) {
         return beginsym;
     }
@@ -28,9 +22,6 @@ token_type evaluate_token_type(char *str) {
     }
     if (strcmp(str, "then") == 0) {
         return thensym;
-    }
-    if (strcmp(str, "else") == 0) {
-        return elsesym;
     }
     if (strcmp(str, "while") == 0) {
         return whilesym;
